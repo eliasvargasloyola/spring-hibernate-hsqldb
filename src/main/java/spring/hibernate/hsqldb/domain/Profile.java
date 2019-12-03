@@ -41,7 +41,7 @@ public class Profile {
     private String color;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Skills> skills;
 
     @Column(name = "sueldo")

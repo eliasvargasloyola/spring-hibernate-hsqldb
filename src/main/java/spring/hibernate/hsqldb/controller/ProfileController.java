@@ -3,8 +3,7 @@ package spring.hibernate.hsqldb.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import spring.hibernate.hsqldb.domain.Profile;
 import spring.hibernate.hsqldb.repository.ProfileRepository;
 
@@ -22,6 +21,27 @@ public class ProfileController {
         List<Profile> response = new ArrayList<>();
         repository.findAll().forEach(response::add);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/profile/{profileId}")
+    public ResponseEntity<Profile> getProfileById(@PathVariable(name = "profileId") Long profileId) {
+        return new ResponseEntity<>(repository.findById(profileId).get(), HttpStatus.OK);
+    }
+
+    @PostMapping("/profile")
+    public ResponseEntity<Profile> addProfile(@RequestBody Profile profile) {
+        return new ResponseEntity<>(repository.save(profile), HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/profile")
+    public ResponseEntity<Profile> updateProfile(@RequestBody Profile profile) {
+        return new ResponseEntity<>(repository.save(profile), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/profile/{profileId}")
+    public ResponseEntity<Object> deleteProfile(@PathVariable(name = "profileId") Long profileId) {
+        repository.deleteById(profileId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

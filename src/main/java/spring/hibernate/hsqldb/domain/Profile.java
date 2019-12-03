@@ -1,5 +1,6 @@
 package spring.hibernate.hsqldb.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
@@ -13,7 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "profiles")
+@Table(name = "users_profiles")
 public class Profile {
 
     @Id
@@ -39,7 +40,8 @@ public class Profile {
     @Column(name = "color")
     private String color;
 
-    @OneToMany(mappedBy = "profile")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY)
     private List<Skills> skills;
 
     @Column(name = "sueldo")

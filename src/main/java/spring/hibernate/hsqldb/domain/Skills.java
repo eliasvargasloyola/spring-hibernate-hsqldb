@@ -1,5 +1,6 @@
 package spring.hibernate.hsqldb.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,8 +16,9 @@ public class Skills {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSkill;
 
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "profile_id", nullable = false)
+    @JoinColumn(name = "profile_id")
     private Profile profile;
 
     @Column(name = "name_skill")

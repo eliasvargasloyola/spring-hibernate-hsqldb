@@ -25,7 +25,7 @@ public class ProfileController {
 
     @GetMapping("/profile/{profileId}")
     public ResponseEntity<Profile> getProfileById(@PathVariable(name = "profileId") Long profileId) {
-        return new ResponseEntity<>(repository.findById(profileId).get(), HttpStatus.OK);
+        return new ResponseEntity<>(repository.findById(profileId).orElse(new Profile()), HttpStatus.OK);
     }
 
     @PostMapping("/profile")
